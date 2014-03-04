@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <!-- TODO: この RelativeLayout の子要素から、適宜 View を抜き出して、Fragment に切り出す -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
