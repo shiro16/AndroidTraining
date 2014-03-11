@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="jp.mixi.practice.notification.beg.SubActivity"></activity>
     </application>
 
 </manifest>
