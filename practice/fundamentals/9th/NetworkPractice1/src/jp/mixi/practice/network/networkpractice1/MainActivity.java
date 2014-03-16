@@ -1,15 +1,27 @@
 package jp.mixi.practice.network.networkpractice1;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
+    private Activity mActivity = this;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -20,20 +32,22 @@ public class MainActivity extends Activity {
                     .penaltyDeath()
                     .build());
         }
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         View buttonGet = findViewById(R.id.buttonGet);
         buttonGet.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                // http getの処理を書く
+                new GetMyAsync(mActivity).execute(getAccessUrl());
             }
         });
         View buttonPost = findViewById(R.id.buttonPost);
         buttonPost.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                // http postの処理を書く
+                EditText editText = (EditText) findViewById(R.id.httpBody);
+                new PostMyAsync(mActivity).execute(getAccessUrl(), editText.getText().toString());
             }
         });
     }
@@ -45,4 +59,8 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    private String getAccessUrl() {
+        EditText editText = (EditText) findViewById(R.id.accessUrl);
+        return editText.getText().toString();
+    }
 }

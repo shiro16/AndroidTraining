@@ -8,9 +8,11 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
-
+    private Activity mActivity = this;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
@@ -26,7 +28,7 @@ public class MainActivity extends Activity {
         buttonGet.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                // http getの処理を書く
+                new GetMyAsync(mActivity).execute(getAccessUrl());
             }
         });
         
@@ -34,7 +36,8 @@ public class MainActivity extends Activity {
         buttonPost.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                // http postの処理を書く
+                EditText editText = (EditText) findViewById(R.id.httpBody);
+                new PostMyAsync(mActivity).execute(getAccessUrl(), editText.getText().toString());
             }
         });
     }
@@ -46,4 +49,8 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    private String getAccessUrl() {
+        EditText editText = (EditText) findViewById(R.id.accessUrl);
+        return editText.getText().toString();
+    }
 }
